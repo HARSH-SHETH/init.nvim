@@ -194,6 +194,10 @@ return {
             },
           },
         },
+        bashls = {},
+        gopls = {},
+        tsserver = {},
+        phpactor = {},
       }
 
       -- Ensure the servers and tools above are installed

@@ -72,10 +72,21 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          local lsp_definitions = require('telescope.builtin').lsp_definitions
+
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gdb', lsp_definitions, '[G]oto [D]efinition')
+          map('gdv', function()
+            lsp_definitions { jump_type = 'vsplit' }
+          end, '[G]oto [D]efinition')
+          map('gdx', function()
+            lsp_definitions { jump_type = 'split' }
+          end, '[G]oto [D]efinition')
+          map('gdt', function()
+            lsp_definitions { jump_type = 'tab' }
+          end, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -179,7 +190,6 @@ return {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
-        bashls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -197,8 +207,14 @@ return {
         },
         bashls = {},
         gopls = {},
-        tsserver = {},
+        ts_ls = {
+          single_file_support = true,
+          nodePath = '/home/harsh/.nvm/versions/node/v20.16.0/bin/node',
+          maxTsServerMemory = 'auto',
+        },
         phpactor = {},
+        html = {},
+        sqls = {},
       }
 
       -- Ensure the servers and tools above are installed
